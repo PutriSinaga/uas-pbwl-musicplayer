@@ -1,0 +1,44 @@
+
+<?php $__env->startSection('content'); ?>
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<style type="text/css">
+
+		h2	{
+			margin-bottom: 30px;
+		}
+
+	</style>
+</head>
+<body>
+<div class="container">
+<form action="<?php echo e(url('/artis')); ?>">
+	<?php echo csrf_field(); ?>
+	<h3>Daftar Album<a id="tbh" href="<?php echo e(url('album/create')); ?>">+</a></h3>
+	<table  class="table table-hover ">
+		<tr class="table-primary">
+			<th>ID</th>
+			<th>NAMA ALBUM</th>
+			<th>NAMA ARTIS</th>
+			<th>EDIT</th>
+			<th>HAPUS</th>
+		</tr>
+		<?php $__currentLoopData = $rows; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $row): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+		<tr class="table-primary">
+			<td><?php echo e($row->album_id); ?></td>
+			<td><?php echo e($row->nama_album); ?></td>
+			<td><?php echo e($row->artis->nama_artis); ?></td>
+			<td><a id="btn" href="<?php echo e(url('album/'.$row->album_id.'/edit')); ?>" class="btn btn-outline-dark">Edit</a></td>
+			<td><form action="<?php echo e(url('/album/'.$row->album_id)); ?>" method="post">
+				<input type="hidden" name="_method" value="DELETE">
+				<?php echo csrf_field(); ?>
+				<button id="btn" class="btn btn-outline-dark">Hapus</button>
+			</form></td>
+		</tr>
+		<?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?> 
+	</table>
+</div>
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('layouts.app', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\xampp\htdocs\uas final\resources\views/album/index.blade.php ENDPATH**/ ?>
